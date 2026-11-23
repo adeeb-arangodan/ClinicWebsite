@@ -1,0 +1,23 @@
+{% load static %}
+<section id="services" class="py-5" aria-labelledby="services-title">
+  <div class="container">
+    {# TODO: real copy. This is the first visible text after the carousel: keep clinic name, Makkah and primary keywords in the H2 and opening paragraph. #}
+    <h2 id="services-title" class="mb-3">Our Medical Services in Makkah</h2>
+    <p class="lead mb-4">
+      {{ site.name }} is a polyclinic in {{ site.city }}, {{ site.country }}, offering family medicine, pediatrics, dentistry and more under one roof.
+      TODO: replace with 60-100 words of real introductory copy describing the clinic and its main services.
+    </p>
+    <div class="row g-4">
+      {% for service in site.services %}
+      <div class="col-12 col-md-6 col-lg-4">
+        <article class="card h-100 service-card">
+          <div class="card-body">
+            <h3 class="h5 card-title">{{ service.name }}</h3>
+            <p class="card-text">{{ service.text }}</p>
+          </div>
+        </article>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>

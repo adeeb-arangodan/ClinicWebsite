@@ -1,0 +1,19 @@
+{% load static %}
+<section id="testimonials" class="py-5 bg-light" aria-labelledby="testimonials-title">
+  <div class="container">
+    {# TODO: real patient reviews with consent. Do not add rating markup without real data. #}
+    <h2 id="testimonials-title" class="mb-4">What Our Patients Say</h2>
+    <div class="row g-4">
+      {% for t in site.testimonials %}
+      <div class="col-12 col-md-4">
+        <article class="card h-100">
+          <div class="card-body">
+            <blockquote class="mb-3">{{ t.quote }}</blockquote>
+            <p class="fw-semibold mb-0">{{ t.author }}</p>
+          </div>
+        </article>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>

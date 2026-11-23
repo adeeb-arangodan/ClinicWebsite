@@ -1,0 +1,24 @@
+{% load static %}
+<section id="faq" class="py-5" aria-labelledby="faq-title">
+  <div class="container">
+    {# TODO: real answers (40-80 words each). Answers stay in the DOM; keep in sync with the FAQPage JSON-LD (same source: site.faq). #}
+    <h2 id="faq-title" class="mb-4">Frequently Asked Questions</h2>
+    <div class="accordion" id="faqAccordion">
+      {% for item in site.faq %}
+      <div class="accordion-item">
+        <h3 class="accordion-header" id="faq-h-{{ forloop.counter }}">
+          <button class="accordion-button{% if not forloop.first %} collapsed{% endif %}" type="button"
+                  data-bs-toggle="collapse" data-bs-target="#faq-c-{{ forloop.counter }}"
+                  aria-expanded="{% if forloop.first %}true{% else %}false{% endif %}" aria-controls="faq-c-{{ forloop.counter }}">
+            {{ item.q }}
+          </button>
+        </h3>
+        <div id="faq-c-{{ forloop.counter }}" class="accordion-collapse collapse{% if forloop.first %} show{% endif %}"
+             aria-labelledby="faq-h-{{ forloop.counter }}" data-bs-parent="#faqAccordion">
+          <div class="accordion-body">{{ item.a }}</div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,33 @@
+{% load static %}
+<section id="contact" class="py-5 bg-light" aria-labelledby="contact-title">
+  <div class="container">
+    {# TODO: real NAP in views.SITE (single source for footer, contact and JSON-LD) #}
+    <h2 id="contact-title" class="mb-4">Contact and Find Us in {{ site.city }}</h2>
+    <div class="row g-4">
+      <div class="col-12 col-lg-5">
+        <h3 class="h5">Address</h3>
+        <address>
+          <strong>{{ site.name }}</strong><br>
+          {{ site.street }}<br>
+          {{ site.city }}, {{ site.country }}
+        </address>
+        <h3 class="h5">Phone</h3>
+        <p><a href="tel:{{ site.phone_href }}">{{ site.phone }}</a></p>
+        <h3 class="h5">Opening Hours</h3>
+        <ul class="list-unstyled">
+          {% for h in site.hours %}<li>{{ h.label }}: {{ h.text }}</li>{% endfor %}
+        </ul>
+        <p>
+          <a class="btn btn-primary" href="{{ site.directions_url }}" rel="noopener">Get directions to the clinic</a>
+          <a class="btn btn-outline-primary" href="{{ site.gbp_url }}" rel="noopener">View us on Google Maps</a>
+        </p>
+      </div>
+      <div class="col-12 col-lg-7">
+        <div class="ratio ratio-16x9">
+          <iframe src="{{ site.map_embed_url }}" title="Map showing the location of {{ site.name }} in {{ site.city }}"
+                  loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

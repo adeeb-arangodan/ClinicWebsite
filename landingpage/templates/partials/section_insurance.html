@@ -1,0 +1,20 @@
+{% load static %}
+<section id="insurance" class="py-5" aria-labelledby="insurance-title">
+  <div class="container">
+    {# TODO: real insurer list, logos in static/img/insurance/ with descriptive alt text #}
+    <h2 id="insurance-title" class="mb-3">Accepted Insurance Providers</h2>
+    <p class="mb-4">
+      {{ site.name }} works with leading insurance companies so patients in {{ site.city }} can get care with minimal paperwork.
+      TODO: replace with 80+ words explaining accepted insurers, pre-approval and how to claim.
+    </p>
+    <div class="row g-3">
+      {% for insurer in site.insurers %}
+      <div class="col-6 col-md-3">
+        <div class="border rounded p-3 text-center h-100 d-flex align-items-center justify-content-center">
+          <h3 class="h6 mb-0">{{ insurer.name }}</h3>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>

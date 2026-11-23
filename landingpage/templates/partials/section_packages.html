@@ -1,0 +1,22 @@
+{% load static %}
+<section id="packages" class="py-5 bg-light" aria-labelledby="packages-title">
+  <div class="container">
+    {# TODO: real packages and prices #}
+    <h2 id="packages-title" class="mb-4">Health Check-up Packages</h2>
+    <div class="row g-4">
+      {% for package in site.packages %}
+      <div class="col-12 col-md-4">
+        <article class="card h-100">
+          <div class="card-body">
+            <h3 class="h5 card-title">{{ package.name }}</h3>
+            <ul>
+              {% for item in package.items %}<li>{{ item }}</li>{% endfor %}
+            </ul>
+            <p class="fw-semibold mb-0">Price: {{ package.price }} SAR</p>
+          </div>
+        </article>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>

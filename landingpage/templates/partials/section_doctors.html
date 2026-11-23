@@ -1,0 +1,22 @@
+{% load static %}
+<section id="doctors" class="py-5 bg-light" aria-labelledby="doctors-title">
+  <div class="container">
+    {# TODO: real copy and real doctor photos in static/img/doctors/ #}
+    <h2 id="doctors-title" class="mb-4">Meet Our Doctors</h2>
+    <div class="row g-4">
+      {% for doctor in site.doctors %}
+      <div class="col-12 col-md-6 col-lg-4">
+        <article class="card h-100 text-center">
+          <img class="card-img-top doctor-photo" src="{% static doctor.photo %}"
+               alt="{{ doctor.name }}, {{ doctor.specialty }} doctor in {{ site.city }}" width="400" height="400" loading="lazy" decoding="async">
+          <div class="card-body">
+            <h3 class="h5 card-title">{{ doctor.name }}</h3>
+            <p class="text-primary mb-2">{{ doctor.specialty }} in {{ site.city }}</p>
+            <p class="card-text">{{ doctor.bio }}</p>
+          </div>
+        </article>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>

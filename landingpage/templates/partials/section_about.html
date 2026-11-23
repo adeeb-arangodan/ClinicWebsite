@@ -1,0 +1,23 @@
+{% load static %}
+<section id="about" class="py-5" aria-labelledby="about-title">
+  <div class="container">
+    {# TODO: real copy (150+ words) and real clinic photo #}
+    <div class="row align-items-center g-4">
+      <div class="col-12 col-lg-6">
+        <h2 id="about-title" class="mb-3">About {{ site.name }}</h2>
+        <p>
+          {{ site.name }} is a polyclinic serving families in {{ site.city }}, {{ site.country }}.
+          TODO: replace with at least 150 words covering the clinic's story, mission, facilities and licensing.
+        </p>
+        <h3 class="h5">Our Mission</h3>
+        <p>TODO: mission statement.</p>
+        <h3 class="h5">Our Facilities</h3>
+        <p>TODO: describe consultation rooms, laboratory, pharmacy and equipment.</p>
+      </div>
+      <div class="col-12 col-lg-6">
+        <img class="img-fluid rounded" src="{% static 'img/clinic/safa-makkah-polyclinic-2-reception.jpg' %}"
+             alt="Reception area of {{ site.name }} in {{ site.city }}" width="800" height="600" loading="lazy" decoding="async">
+      </div>
+    </div>
+  </div>
+</section>

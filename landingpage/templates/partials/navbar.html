@@ -1,0 +1,28 @@
+{% load static %}
+<nav id="mainNav" class="navbar navbar-expand-lg bg-white sticky-top" aria-label="Main">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center gap-2" href="#top">
+      <img src="{% static 'img/logo/safa-makkah-polyclinic-2-logo.svg' %}" alt="{{ site.name }} logo" width="46" height="48">
+      <span class="brand-name">{{ site.brand_name }}</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navLinks"
+            aria-controls="navLinks" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navLinks">
+      <ul class="navbar-nav mx-lg-auto mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link" href="#top">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="#doctors">Doctors</a></li>
+        <li class="nav-item"><a class="nav-link" href="#insurance">Insurance</a></li>
+        <li class="nav-item"><a class="nav-link" href="#packages">Packages</a></li>
+        <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+      </ul>
+      <div class="d-flex align-items-center gap-2">
+        {# TODO: EN/AR toggle is a placeholder until the Arabic URL strategy is decided (spec section 13). #}
+        <a class="btn lang-toggle" href="#" lang="ar" hreflang="ar" aria-label="Switch to Arabic">العربية</a>
+        <a class="btn btn-book" href="#contact">Book / Enquire</a>
+      </div>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,42 @@
+{% load static %}<!doctype html>
+<html lang="{{ lang }}" dir="{{ dir }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}{{ page.title }}{% endblock %}</title>
+  <meta name="description" content="{% block meta_description %}{{ page.description }}{% endblock %}">
+  {% block meta_robots %}<meta name="robots" content="index, follow, max-image-preview:large">{% endblock %}
+  {% block canonical %}<link rel="canonical" href="{{ canonical_url }}">{% endblock %}
+  {% block hreflang %}{% endblock %}
+  {% block og_twitter %}{% endblock %}
+  <link rel="icon" href="{% static 'img/logo/safa-makkah-polyclinic-2-logo.svg' %}" type="image/svg+xml">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  {% block preloads %}{% endblock %}
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{% static 'css/site.css' %}">
+  {% block jsonld %}{% endblock %}
+  {% block extra_head %}{% endblock %}
+</head>
+<body data-bs-spy="scroll" data-bs-target="#mainNav" data-bs-root-margin="-20% 0px -70% 0px" data-bs-smooth-scroll="false" tabindex="-1" id="top">
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header>
+    {% include "partials/navbar.html" %}
+  </header>
+
+  <main id="main">
+    {% block content %}{% endblock %}
+  </main>
+
+  {% include "partials/footer.html" %}
+
+  <button type="button" id="backToTop" class="back-to-top" aria-label="Back to top" hidden>
+    <span aria-hidden="true">&uarr;</span>
+  </button>
+
+  {% block scripts %}
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
+  <script src="{% static 'js/site.js' %}" defer></script>
+  {% endblock %}
+</body>
+</html>

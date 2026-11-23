@@ -1,0 +1,83 @@
+:root {
+  --nav-height: 72px;
+  --brand: #0b5c6b;
+  --brand-dark: #08414c;
+}
+
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .carousel-item { transition: none; }
+}
+
+body { color: #1f2933; }
+a { color: var(--brand-dark); }
+.text-primary { color: var(--brand-dark) !important; }
+.btn-primary { --bs-btn-bg: var(--brand); --bs-btn-border-color: var(--brand); --bs-btn-hover-bg: var(--brand-dark); --bs-btn-hover-border-color: var(--brand-dark); }
+.btn-outline-primary { --bs-btn-color: var(--brand-dark); --bs-btn-border-color: var(--brand); --bs-btn-hover-bg: var(--brand); --bs-btn-hover-border-color: var(--brand); }
+
+section[id] { scroll-margin-top: var(--nav-height); }
+#top { scroll-margin-top: 0; }
+
+.skip-link {
+  position: absolute;
+  inset-inline-start: 0.5rem;
+  top: -4rem;
+  z-index: 2000;
+  padding: 0.75rem 1rem;
+  background: #fff;
+  color: #000;
+}
+.skip-link:focus { top: 0.5rem; }
+
+.navbar { box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06); }
+.navbar .nav-link, .navbar .btn { min-height: 48px; display: inline-flex; align-items: center; }
+.navbar .brand-name { font-weight: 600; font-size: 1rem; color: #0f2a30; }
+.navbar .nav-link { font-weight: 500; color: #0f2a30; padding-inline: 0.6rem; }
+.navbar .nav-link.active { color: var(--brand); box-shadow: inset 0 -2px 0 var(--brand); }
+
+.lang-toggle {
+  background: #fff;
+  border: 1px solid #d9e2e4;
+  border-radius: 0.5rem;
+  padding-inline: 1rem;
+  color: #000;
+  font-weight: 500;
+}
+.lang-toggle:hover { background: #f3f7f8; }
+
+.btn-book {
+  background: linear-gradient(90deg, #0b7a8f, #1a9b7a);
+  color: #fff;
+  border: 0;
+  border-radius: 0.6rem;
+  padding-inline: 1.25rem;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(11, 122, 143, 0.25);
+}
+.btn-book:hover, .btn-book:focus { color: #fff; filter: brightness(0.92); }
+
+.hero-img { aspect-ratio: 1600 / 600; object-fit: cover; height: auto; }
+@media (max-width: 767.98px) { .hero-img { aspect-ratio: 768 / 600; } }
+
+.doctor-photo { aspect-ratio: 1 / 1; object-fit: cover; }
+
+.accordion-button { min-height: 48px; }
+
+.site-footer { background: #0f2a30; color: #e6eef0; }
+.site-footer a { color: #fff; }
+
+.back-to-top {
+  position: fixed;
+  inset-inline-end: 1rem;
+  bottom: 1rem;
+  width: 48px;
+  height: 48px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--brand);
+  color: #fff;
+  font-size: 1.25rem;
+  z-index: 1030;
+}
+.back-to-top[hidden] { display: none; }

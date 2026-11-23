@@ -1,0 +1,28 @@
+<footer class="site-footer py-4">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-12 col-md-6">
+        <p class="fw-semibold mb-2">{{ site.name }}</p>
+        <address class="mb-2">
+          {{ site.street }}, {{ site.city }}, {{ site.country }}<br>
+          Phone: <a href="tel:{{ site.phone_href }}">{{ site.phone }}</a>
+        </address>
+        <p class="mb-0"><a href="{{ site.gbp_url }}" rel="noopener">Find us on Google Maps</a></p>
+      </div>
+      <div class="col-6 col-md-3">
+        <p class="fw-semibold mb-2">Opening Hours</p>
+        <ul class="list-unstyled mb-0">
+          {% for h in site.hours %}<li>{{ h.label }}: {{ h.text }}</li>{% endfor %}
+        </ul>
+      </div>
+      <div class="col-6 col-md-3">
+        <p class="fw-semibold mb-2">Follow Us</p>
+        <ul class="list-unstyled mb-0">
+          {# TODO: real social URLs #}
+          {% for s in site.social %}<li><a href="{{ s.url }}" rel="noopener">{{ s.name }}</a></li>{% endfor %}
+        </ul>
+      </div>
+    </div>
+    <p class="small mt-4 mb-0">&copy; {% now "Y" %} {{ site.name }}. All rights reserved.</p>
+  </div>
+</footer>
