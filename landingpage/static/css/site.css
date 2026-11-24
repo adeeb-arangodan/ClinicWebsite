@@ -5,9 +5,18 @@
 }
 
 html { scroll-behavior: smooth; }
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  .carousel-item { transition: none; }
+
+/* Animations are always on, even if the OS asks for reduced motion (deliberate product decision).
+   Bootstrap removes these transitions under prefers-reduced-motion; restate them. The :root prefix
+   gives higher specificity than Bootstrap's single-class rules, so no !important is needed. */
+:root #heroCarousel .carousel-item { transition: transform 0.3s ease-in-out; }
+:root .collapsing { transition: height 0.35s ease; }
+:root .collapsing.collapse-horizontal { transition: width 0.35s ease; }
+:root .accordion-button::after { transition: transform 0.2s ease-in-out; }
+:root .accordion-button,
+:root .btn {
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+              border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
 body { color: #1f2933; }
@@ -57,8 +66,95 @@ section[id] { scroll-margin-top: var(--nav-height); }
 }
 .btn-book:hover, .btn-book:focus { color: #fff; filter: brightness(0.92); }
 
-.hero-img { aspect-ratio: 1600 / 600; object-fit: cover; height: auto; }
-@media (max-width: 767.98px) { .hero-img { aspect-ratio: 768 / 600; } }
+.hero-img { aspect-ratio: 1600 / 602; object-fit: cover; height: auto; }
+@media (max-width: 767.98px) { .hero-img { aspect-ratio: 768 / 922; } }
+
+/* Carousel controls: styled to stay visible on the light slide artwork. */
+/* Indicators: dark pill container, light dots, elongated cyan pill for the active slide. */
+#heroCarousel .carousel-indicators {
+  inset-inline: auto;
+  left: 50%;
+  transform: translateX(-50%);
+  width: fit-content;
+  margin: 0 0 0.75rem;
+  padding: 0 0.6rem;
+  gap: 0;
+  background: rgba(55, 75, 90, 0.88);
+  border-radius: 999px;
+}
+#heroCarousel .carousel-indicators [data-bs-target] {
+  box-sizing: content-box;
+  flex: none;
+  width: 10px;
+  height: 10px;
+  margin: 0;
+  padding: 0;
+  border: solid transparent;
+  border-width: 19px 6px;          /* enlarges the tap target to 48px tall */
+  border-radius: 999px;
+  background-color: #dbe4e8;
+  background-clip: padding-box;
+  opacity: 1;
+  transition: width 0.25s ease, background-color 0.25s ease;
+}
+#heroCarousel .carousel-indicators .active {
+  width: 28px;
+  background-color: #7fe3ee;
+}
+/* Prev/next: round white buttons with a dark chevron, shown while the pointer or focus is on the carousel. */
+#heroCarousel .carousel-control-prev,
+#heroCarousel .carousel-control-next {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+#heroCarousel:hover .carousel-control-prev,
+#heroCarousel:hover .carousel-control-next,
+#heroCarousel:focus-within .carousel-control-prev,
+#heroCarousel:focus-within .carousel-control-next { opacity: 1; }
+@media (hover: none) {
+  #heroCarousel .carousel-control-prev,
+  #heroCarousel .carousel-control-next { opacity: 1; }   /* touch screens have no hover */
+}
+#heroCarousel .carousel-control-prev-icon,
+#heroCarousel .carousel-control-next-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.92);
+  background-size: 45%;
+  background-repeat: no-repeat;
+  background-position: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  filter: none;
+}
+#heroCarousel .carousel-control-prev-icon {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M10 3L5 8l5 5' fill='none' stroke='%230b3d5c' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+#heroCarousel .carousel-control-next-icon {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M6 3l5 5-5 5' fill='none' stroke='%230b3d5c' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+
+/* Progress line along the bottom edge; fills over one slide interval. */
+#heroCarousel .carousel-progress {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 4px;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 3;
+  pointer-events: none;
+}
+#heroCarousel .carousel-progress span {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, #0b7a8f, #2bd4a0);
+}
+#heroCarousel .carousel-progress span.run {
+  animation: carousel-progress var(--slide-ms, 5000ms) linear forwards;
+}
+@keyframes carousel-progress { from { width: 0; } to { width: 100%; } }
+/* Always shown (animations are always on, see the top of this file). */
 
 .doctor-photo { aspect-ratio: 1 / 1; object-fit: cover; }
 

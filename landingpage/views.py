@@ -72,12 +72,17 @@ SITE = {
         {'q': 'Are Arabic and English speaking doctors available?', 'a': 'TODO: list the languages spoken by the medical team.'},
     ],
     'slides': [
-        {'key': 'slide-1', 'file': 'family-healthcare-makkah',
-         'alt': 'Trusted Family Healthcare in Makkah - polyclinic and family doctors at Safa Makkah Polyclinic 2'},
-        {'key': 'slide-2', 'file': 'specialist-doctors-makkah',
-         'alt': 'Experienced Doctors, Every Specialty - specialist doctors in Makkah at Safa Makkah Polyclinic 2'},
-        {'key': 'slide-3', 'file': 'health-checkup-packages-makkah',
-         'alt': 'Health Check-up Packages in Makkah - full body check-up at Safa Makkah Polyclinic 2'},
+        # file_ar / alt_ar: Arabic artwork is ready (static/img/carousel/*-ar-*) but unused
+        # until the Arabic page exists (spec section 13).
+        {'key': 'slide-1', 'file': 'family-healthcare-makkah', 'file_ar': 'family-healthcare-makkah-ar',
+         'alt': 'Comprehensive Healthcare Under One Roof - multi-specialty consultations, laboratory, imaging and pharmacy at Safa Makkah Polyclinic 2 in Makkah',
+         'alt_ar': 'رعاية صحية شاملة تحت سقف واحد - استشارات متعددة التخصصات ومختبر وأشعة وصيدلية في عيادات صفا مكة بمكة المكرمة'},
+        {'key': 'slide-2', 'file': 'iqama-baladiya-medical-center-makkah', 'file_ar': 'iqama-baladiya-medical-center-makkah-ar',
+         'alt': 'Iqama and Baladiya Medical Center - complete medical fitness services in Makkah at Safa Makkah Polyclinic 2',
+         'alt_ar': 'مركز الإقامة والبلدية الطبي - خدمات الفحوصات الطبية الشاملة في مكة المكرمة لدى عيادات صفا مكة'},
+        {'key': 'slide-3', 'file': 'senior-doctors-makkah', 'file_ar': 'senior-doctors-makkah-ar',
+         'alt': 'Well Experienced Senior Doctors with 20+ years of experience - orthopedics, internal medicine, dental care and general practice in Makkah',
+         'alt_ar': 'أطباء استشاريون ذوو خبرة عالية - جراحة العظام والطب الباطني وطب الأسنان والرعاية الطبية العامة في مكة المكرمة'},
     ],
 }
 

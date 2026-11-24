@@ -17,12 +17,13 @@
         <source type="image/webp" srcset="{% static 'img/carousel/' %}{{ slide.file }}-desktop.webp">
         <img class="d-block w-100 hero-img"
              src="{% static 'img/carousel/' %}{{ slide.file }}-desktop.jpg"
-             alt="{{ slide.alt }}" width="1600" height="600"
+             alt="{{ slide.alt }}" width="1600" height="602"
              {% if forloop.first %}fetchpriority="high"{% else %}loading="lazy" decoding="async"{% endif %}>
       </picture>
     </div>
     {% endfor %}
   </div>
+  <div class="carousel-progress" aria-hidden="true"><span></span></div>
   <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
     <span class="visually-hidden">Previous slide</span>

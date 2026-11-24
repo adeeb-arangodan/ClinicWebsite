@@ -111,7 +111,7 @@ Every section: `<section id="..." aria-labelledby="...">`, one H2, short placeho
 
 ### Scroll behavior
 
-- Smooth scroll: CSS `html { scroll-behavior: smooth; }`, disabled under `prefers-reduced-motion`.
+- Smooth scroll: CSS `html { scroll-behavior: smooth; }`. Animations are always on, even when the OS requests reduced motion (product decision; a user-facing opt-out is a possible future feature).
 - Sticky navbar: `position: sticky; top: 0` (Bootstrap `sticky-top`). Sections use `scroll-margin-top` equal to navbar height (CSS variable) so headings are not covered.
 - Scrollspy: Bootstrap scrollspy on `<body data-bs-spy="scroll" data-bs-target="#mainNav" data-bs-root-margin=...>`; active link gets `aria-current="true"`.
 - Back-to-top: button appears after ~600px scroll, links to `#top`, min 48x48px, focusable, labelled.
@@ -168,7 +168,7 @@ Rules in section 8. Placeholder: 3 slides with placeholder images.
 3. Each slide `<img>` alt = baked-in heading text + target keyword; identical to the slide's `aria-label`.
 4. Slide 1: `<link rel="preload" as="image" imagesrcset imagesizes>` in head, `fetchpriority="high"`, **not** lazy (LCP element). Slides 2 and 3: `loading="lazy"`, `decoding="async"`.
 5. Images: explicit `width`/`height` (reserve aspect ratio, no CLS), `<picture>` with AVIF/WebP sources + JPG fallback, separate mobile and desktop crops via `srcset`/`sizes` (suggest 768w and 1600w+), descriptive filenames (e.g. `polyclinic-makkah-family-medicine-desktop.webp`).
-6. Behavior: autoplay (`data-bs-ride="carousel"`, ~5-6s), indicators, prev/next controls with visually-hidden labels, keyboard operable, pause on hover/focus, respects `prefers-reduced-motion`.
+6. Behavior: autoplay (`data-bs-ride="carousel"`, ~5-6s), indicators, prev/next controls with visually-hidden labels, keyboard operable, pause on hover/focus; transitions stay on regardless of `prefers-reduced-motion`.
 7. Do not rely on carousel content for keyword value; visible keyword text lives in the sections below (the services section directly follows the carousel, so its H2 and opening paragraph must carry the clinic name, Makkah and primary keywords naturally).
 8. Heading hierarchy: one H1 (hidden), H2 per section, H3 for items; never skip levels; no headings used only for styling (use classes).
 
@@ -187,7 +187,7 @@ Rules in section 8. Placeholder: 3 slides with placeholder images.
 | Links | Descriptive anchor text (no "click here") |
 | FAQ | Accordion answers stay in the DOM |
 | Mobile | Mobile-first, responsive, viewport meta, tap targets >= 48px |
-| Accessibility | Alt text, aria labels, skip link, WCAG AA contrast, visible focus, `prefers-reduced-motion` |
+| Accessibility | Alt text, aria labels, skip link, WCAG AA contrast, visible focus (animations deliberately ignore `prefers-reduced-motion`) |
 | Analytics | Verification meta placeholder, GA4 placeholder, non-blocking |
 
 ### Content guidance (avoid thin content)
