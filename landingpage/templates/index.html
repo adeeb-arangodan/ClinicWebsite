@@ -30,10 +30,12 @@
 {% endblock %}
 
 {% block preloads %}
+  {% with first=slides.0 %}{% if first %}
   <link rel="preload" as="image" type="image/avif"
-        href="{% static 'img/carousel/family-healthcare-makkah-desktop.avif' %}"
-        imagesrcset="{% static 'img/carousel/family-healthcare-makkah-mobile.avif' %} 768w, {% static 'img/carousel/family-healthcare-makkah-desktop.avif' %} 1600w"
+        href="{{ first.desktop.avif }}"
+        imagesrcset="{{ first.mobile.avif }} 768w, {{ first.desktop.avif }} 1600w"
         imagesizes="100vw" fetchpriority="high">
+  {% endif %}{% endwith %}
 {% endblock %}
 
 {% block jsonld %}

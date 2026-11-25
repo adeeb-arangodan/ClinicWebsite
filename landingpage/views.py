@@ -4,7 +4,10 @@ from datetime import date
 from django.conf import settings
 from django.shortcuts import render
 
-# Single source of truth for NAP and content. All values are TODO placeholders
+from .models import PageSeo
+
+# Single source of truth for NAP and content (carousel slides and page SEO live in the database).
+# All values are TODO placeholders
 # until the open questions in the spec (section 13) are answered.
 SITE = {
     'name': 'Safa Makkah Polyclinic 2',
@@ -71,19 +74,6 @@ SITE = {
         {'q': 'Do you offer health check-up packages?', 'a': 'TODO: describe the available packages, what each includes and how long results take.'},
         {'q': 'Are Arabic and English speaking doctors available?', 'a': 'TODO: list the languages spoken by the medical team.'},
     ],
-    'slides': [
-        # file_ar / alt_ar: Arabic artwork is ready (static/img/carousel/*-ar-*) but unused
-        # until the Arabic page exists (spec section 13).
-        {'key': 'slide-1', 'file': 'family-healthcare-makkah', 'file_ar': 'family-healthcare-makkah-ar',
-         'alt': 'Comprehensive Healthcare Under One Roof - multi-specialty consultations, laboratory, imaging and pharmacy at Safa Makkah Polyclinic 2 in Makkah',
-         'alt_ar': 'رعاية صحية شاملة تحت سقف واحد - استشارات متعددة التخصصات ومختبر وأشعة وصيدلية في عيادات صفا مكة بمكة المكرمة'},
-        {'key': 'slide-2', 'file': 'iqama-baladiya-medical-center-makkah', 'file_ar': 'iqama-baladiya-medical-center-makkah-ar',
-         'alt': 'Iqama and Baladiya Medical Center - complete medical fitness services in Makkah at Safa Makkah Polyclinic 2',
-         'alt_ar': 'مركز الإقامة والبلدية الطبي - خدمات الفحوصات الطبية الشاملة في مكة المكرمة لدى عيادات صفا مكة'},
-        {'key': 'slide-3', 'file': 'senior-doctors-makkah', 'file_ar': 'senior-doctors-makkah-ar',
-         'alt': 'Well Experienced Senior Doctors with 20+ years of experience - orthopedics, internal medicine, dental care and general practice in Makkah',
-         'alt_ar': 'أطباء استشاريون ذوو خبرة عالية - جراحة العظام والطب الباطني وطب الأسنان والرعاية الطبية العامة في مكة المكرمة'},
-    ],
 }
 
 PAGE = {
@@ -148,11 +138,21 @@ def _build_jsonld(base_url):
     return [_jsonld(clinic)] + [_jsonld(p) for p in physicians] + [_jsonld(faq)]
 
 
+def get_page_seo(key):
+    """Return the page's SEO row and its active slides; `home` falls back to PAGE if the row is missing."""
+    row = PageSeo.objects.filter(key=key).first()
+    if row:
+        return row, list(row.slides.filter(is_active=True))
+    return (PAGE if key == 'home' else {}), []
+
+
 def index(request):
     base_url = settings.SITE_DOMAIN.rstrip('/')
+    page, slides = get_page_seo('home')
     context = {
         'site': SITE,
-        'page': PAGE,
+        'page': page,
+        'slides': slides,
         'base_url': base_url,
         'canonical_url': f'{base_url}/',
         'lang': 'en',

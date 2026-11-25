@@ -45,7 +45,7 @@ SafaMakkah2/
       ├─ css/site.css
       ├─ js/site.js
       └─ img/
-         ├─ carousel/   (3 slides x mobile/desktop x webp/avif/jpg)
+         ├─ carousel/   (no longer used: slides are uploaded in admin and generated into media/carousel/)
          ├─ clinic/
          ├─ doctors/
          ├─ logo/
@@ -142,7 +142,7 @@ Inside `<header>`/`<nav aria-label="Main">`. Layout follows the design mock `Nav
 
 ### 7.3 `hero_carousel.html`
 
-Rules in section 8. Placeholder: 3 slides with placeholder images.
+Rules in section 8. Slides, alt text and page SEO (title, description, hidden H1) are database-driven: models `Slide` and `PageSeo`, edited in Django admin. Admin uploads desktop and mobile originals; AVIF/WebP/JPG variants are generated into `media/carousel/`. See `.claude/docs/design/02-carousel-to-db.md`. Production: the web server must serve `/media/` (Django serves it only when DEBUG is on).
 
 ### 7.4 Content sections
 

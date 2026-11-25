@@ -117,6 +117,9 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+MEDIA_URL = 'media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
 # Landing page (TODO: set real values, see spec section 13)
 SITE_DOMAIN = 'https://example.com'
 GA_MEASUREMENT_ID = ''
