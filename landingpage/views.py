@@ -1,5 +1,6 @@
 import json
 from datetime import date
+from types import SimpleNamespace
 
 from django.conf import settings
 from django.shortcuts import render
@@ -138,25 +139,84 @@ def _build_jsonld(base_url):
     return [_jsonld(clinic)] + [_jsonld(p) for p in physicians] + [_jsonld(faq)]
 
 
-def get_page_seo(key):
-    """Return the page's SEO row and its active slides; `home` falls back to PAGE if the row is missing."""
+UI = {
+    'en': {
+        'brand_name': SITE['brand_name'],
+        'logo_alt': f"{SITE['name']} logo",
+        'skip': 'Skip to main content',
+        'nav_label': 'Main',
+        'toggle_nav': 'Toggle navigation',
+        'home': 'Home', 'doctors': 'Doctors', 'insurance': 'Insurance',
+        'packages': 'Packages', 'services': 'Services', 'contact': 'Contact',
+        'book': 'Book / Enquire',
+        'carousel_label': 'Featured services',
+        'slide_n': 'Slide',
+        'prev': 'Previous slide', 'next': 'Next slide',
+        'back_to_top': 'Back to top',
+        'toggle_text': 'العربية', 'toggle_aria': 'Switch to Arabic',
+        'toggle_lang': 'ar',
+    },
+    'ar': {
+        'brand_name': 'عيادات صفا مكة - 2',
+        'logo_alt': 'شعار عيادات صفا مكة 2',
+        'skip': 'انتقل إلى المحتوى الرئيسي',
+        'nav_label': 'القائمة الرئيسية',
+        'toggle_nav': 'تبديل القائمة',
+        'home': 'الرئيسية', 'doctors': 'الأطباء', 'insurance': 'التأمين',
+        'packages': 'الباقات', 'services': 'الخدمات', 'contact': 'اتصل بنا',
+        'book': 'احجز / استفسر',
+        'carousel_label': 'الخدمات المميزة',
+        'slide_n': 'الشريحة',
+        'prev': 'الشريحة السابقة', 'next': 'الشريحة التالية',
+        'back_to_top': 'العودة للأعلى',
+        'toggle_text': 'English', 'toggle_aria': 'Switch to English',
+        'toggle_lang': 'en',
+    },
+}
+
+
+def get_page_seo(key, lang='en'):
+    """Return (SEO values, active slides) localised for `lang`.
+
+    Arabic values fall back to English when blank. `home` falls back to PAGE if the row is missing.
+    Slides are flattened to alt/desktop/mobile so templates do not branch on language.
+    """
     row = PageSeo.objects.filter(key=key).first()
-    if row:
-        return row, list(row.slides.filter(is_active=True))
-    return (PAGE if key == 'home' else {}), []
+    if not row:
+        return (PAGE if key == 'home' else {}), []
+    ar = lang == 'ar'
+    page = {
+        'title': (ar and row.title_ar) or row.title,
+        'description': (ar and row.description_ar) or row.description,
+        'h1': (ar and row.h1_ar) or row.h1,
+    }
+    slides = []
+    for s in row.slides.filter(is_active=True):
+        use_ar = ar and s.desktop_image_ar and s.mobile_image_ar
+        slides.append(SimpleNamespace(
+            alt=(ar and s.alt_ar) or s.alt,
+            desktop=s.desktop_ar if use_ar else s.desktop,
+            mobile=s.mobile_ar if use_ar else s.mobile,
+            arabic_art=bool(use_ar),
+        ))
+    return page, slides
 
 
-def index(request):
+def index(request, lang='en'):
     base_url = settings.SITE_DOMAIN.rstrip('/')
-    page, slides = get_page_seo('home')
+    page, slides = get_page_seo('home', lang)
     context = {
         'site': SITE,
         'page': page,
         'slides': slides,
+        'ui': UI[lang],
         'base_url': base_url,
-        'canonical_url': f'{base_url}/',
-        'lang': 'en',
-        'dir': 'ltr',
+        'url_en': f'{base_url}/',
+        'url_ar': f'{base_url}/ar/',
+        'canonical_url': f'{base_url}/ar/' if lang == 'ar' else f'{base_url}/',
+        'toggle_href': '/' if lang == 'ar' else '/ar/',
+        'lang': lang,
+        'dir': 'rtl' if lang == 'ar' else 'ltr',
         'ga_id': settings.GA_MEASUREMENT_ID,
         'jsonld_blocks': _build_jsonld(base_url),
     }

@@ -1,10 +1,10 @@
 {% if slides %}
 {# Slide headings are baked into the images: no heading tags here. Alt text = aria-label. #}
-<div id="heroCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="6000" aria-roledescription="carousel" aria-label="Featured services">
+<div id="heroCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="6000" aria-roledescription="carousel" aria-label="{{ ui.carousel_label }}">
   <div class="carousel-indicators">
     {% for slide in slides %}
     <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="{{ forloop.counter0 }}"
-            {% if forloop.first %}class="active" aria-current="true"{% endif %} aria-label="Slide {{ forloop.counter }}"></button>
+            {% if forloop.first %}class="active" aria-current="true"{% endif %} aria-label="{{ ui.slide_n }} {{ forloop.counter }}"></button>
     {% endfor %}
   </div>
   <div class="carousel-inner">
@@ -15,7 +15,7 @@
         <source type="image/webp" media="(max-width: 767.98px)" srcset="{{ slide.mobile.webp }}">
         <source type="image/avif" srcset="{{ slide.desktop.avif }}">
         <source type="image/webp" srcset="{{ slide.desktop.webp }}">
-        <img class="d-block w-100 hero-img"
+        <img class="d-block w-100 hero-img{% if slide.arabic_art %} hero-img-ar{% endif %}"
              src="{{ slide.desktop.jpg }}"
              alt="{{ slide.alt }}" width="1600" height="602"
              {% if forloop.first %}fetchpriority="high"{% else %}loading="lazy" decoding="async"{% endif %}>
@@ -26,11 +26,11 @@
   <div class="carousel-progress" aria-hidden="true"><span></span></div>
   <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous slide</span>
+    <span class="visually-hidden">{{ ui.prev }}</span>
   </button>
   <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
     <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next slide</span>
+    <span class="visually-hidden">{{ ui.next }}</span>
   </button>
 </div>
 {% endif %}

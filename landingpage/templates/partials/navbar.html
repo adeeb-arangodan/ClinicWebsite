@@ -1,27 +1,26 @@
 {% load static %}
-<nav id="mainNav" class="navbar navbar-expand-lg bg-white sticky-top" aria-label="Main">
+<nav id="mainNav" class="navbar navbar-expand-lg bg-white sticky-top" aria-label="{{ ui.nav_label }}">
   <div class="container">
     <a class="navbar-brand d-flex align-items-center gap-2" href="#top">
-      <img src="{% static 'img/logo/safa-makkah-polyclinic-2-logo.svg' %}" alt="{{ site.name }} logo" width="46" height="48">
-      <span class="brand-name">{{ site.brand_name }}</span>
+      <img src="{% static 'img/logo/safa-makkah-polyclinic-2-logo.svg' %}" alt="{{ ui.logo_alt }}" width="46" height="48">
+      <span class="brand-name">{{ ui.brand_name }}</span>
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navLinks"
-            aria-controls="navLinks" aria-expanded="false" aria-label="Toggle navigation">
+            aria-controls="navLinks" aria-expanded="false" aria-label="{{ ui.toggle_nav }}">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navLinks">
       <ul class="navbar-nav mx-lg-auto mb-2 mb-lg-0">
-        <li class="nav-item"><a class="nav-link" href="#top">Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="#doctors">Doctors</a></li>
-        <li class="nav-item"><a class="nav-link" href="#insurance">Insurance</a></li>
-        <li class="nav-item"><a class="nav-link" href="#packages">Packages</a></li>
-        <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
-        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+        <li class="nav-item"><a class="nav-link" href="#top">{{ ui.home }}</a></li>
+        <li class="nav-item"><a class="nav-link" href="#doctors">{{ ui.doctors }}</a></li>
+        <li class="nav-item"><a class="nav-link" href="#insurance">{{ ui.insurance }}</a></li>
+        <li class="nav-item"><a class="nav-link" href="#packages">{{ ui.packages }}</a></li>
+        <li class="nav-item"><a class="nav-link" href="#services">{{ ui.services }}</a></li>
+        <li class="nav-item"><a class="nav-link" href="#contact">{{ ui.contact }}</a></li>
       </ul>
       <div class="d-flex align-items-center gap-2">
-        {# TODO: EN/AR toggle is a placeholder until the Arabic URL strategy is decided (spec section 13). #}
-        <a class="btn lang-toggle" href="#" lang="ar" hreflang="ar" aria-label="Switch to Arabic">العربية</a>
-        <a class="btn btn-book" href="#contact">Book / Enquire</a>
+        <a class="btn lang-toggle" href="{{ toggle_href }}" lang="{{ ui.toggle_lang }}" hreflang="{{ ui.toggle_lang }}" aria-label="{{ ui.toggle_aria }}">{{ ui.toggle_text }}</a>
+        <a class="btn btn-book" href="#contact">{{ ui.book }}</a>
       </div>
     </div>
   </div>

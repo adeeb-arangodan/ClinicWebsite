@@ -131,7 +131,7 @@ Every section: `<section id="..." aria-labelledby="...">`, one H2, short placeho
 | viewport | `width=device-width, initial-scale=1` |
 | Open Graph | `og:type=website`, `og:title`, `og:description`, `og:url`, `og:image` (1200x630, absolute URL), `og:image:alt`, `og:locale` (+ `og:locale:alternate`), `og:site_name` |
 | Twitter | `summary_large_image`, title, description, image, image alt |
-| hreflang | `en`, `ar`, `x-default` (URL strategy: open question) |
+| hreflang | `en`, `ar`, `x-default` (decided: English at `/`, Arabic at `/ar/`; see `.claude/docs/design/03-arabic-page.md`) |
 | Verification | `<meta name="google-site-verification" content="TODO">` |
 | Analytics | GA4 snippet placeholder, loaded `async`, in `extra_head`, behind a `GA_MEASUREMENT_ID` setting; no render-blocking |
 | Performance hints | `preconnect` to Bootstrap CDN (and Google Fonts if used); `font-display: swap`; one small CSS file; JS `defer` |
@@ -181,7 +181,7 @@ Rules in section 8. Slides, alt text and page SEO (title, description, hidden H1
 | Local SEO | Consistent NAP in footer, contact, schema; embedded Google Map; Google Business Profile link |
 | Social | OG + Twitter tags, 1200x630 share image |
 | Indexing | Canonical, robots meta, `robots.txt` (Allow all, Sitemap line), `sitemap.xml` (home URL + language alternates, `lastmod`) |
-| Multilingual | `hreflang` en/ar/x-default, `lang`/`dir` on `<html>`, URL strategy open (e.g. `/en/`, `/ar/`) |
+| Multilingual | `hreflang` en/ar/x-default, `lang`/`dir` on `<html>`, English at `/`, Arabic at `/ar/` (own canonical, RTL Bootstrap build, Arabic navbar, carousel art, title, description and H1; sections below the carousel stay English until translated) |
 | Images | Descriptive alt, width/height, lazy-load below the fold, modern formats |
 | Core Web Vitals | LCP < 2.5s, CLS < 0.1, INP < 200ms; `font-display: swap`, defer JS, minimal CSS, preconnect CDNs |
 | Links | Descriptive anchor text (no "click here") |
@@ -236,7 +236,7 @@ Backend logic, form processing (contact form is out; use tel/WhatsApp/map links)
 ## 13. Open questions
 
 1. Production domain (for canonical, sitemap, OG, schema URLs)?
-2. Arabic version URL strategy: `/en/` + `/ar/`, subdomain, or query/toggle on one URL? Is Arabic in v1?
+2. ~~Arabic version URL strategy~~ Decided: `/` (English) and `/ar/` (Arabic). Still open: Arabic copy for the sections below the carousel, and native-speaker review of the Arabic navbar, title, description and H1.
 3. Target keywords (EN and AR) and priority services?
 4. Google Business Profile: exists/verified? URL and place ID?
 5. Final NAP: address, geo coordinates, phone/WhatsApp, opening hours, languages?

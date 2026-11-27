@@ -8,6 +8,12 @@ from landingpage.views import PAGE
 
 SRC = Path(__file__).resolve().parents[2] / 'static' / 'img' / 'carousel'
 
+ARABIC_SEO = {
+    'title_ar': 'عيادات صفا مكة 2 | مجمع عيادات في مكة المكرمة',
+    'description_ar': 'عيادات صفا مكة 2: أطباء وأسنان وأطفال وفحوصات طبية شاملة في مكة المكرمة. نقبل التأمين الطبي. اتصل بنا أو زرنا اليوم.',
+    'h1_ar': 'عيادات صفا مكة 2: مجمع عيادات وأطباء عائلة موثوقون في مكة المكرمة',
+}
+
 SLIDES = [
     {'slug': 'family-healthcare-makkah',
      'alt': 'Comprehensive Healthcare Under One Roof - multi-specialty consultations, laboratory, imaging and pharmacy at Safa Makkah Polyclinic 2 in Makkah',
@@ -28,6 +34,11 @@ class Command(BaseCommand):
         page, _ = PageSeo.objects.get_or_create(key='home', defaults={
             'path': '/', 'title': PAGE['title'], 'description': PAGE['description'], 'h1': PAGE['h1'],
         })
+        # Draft Arabic copy (needs native-speaker review); fills blanks only, never overwrites edits.
+        for field, text in ARABIC_SEO.items():
+            if not getattr(page, field):
+                setattr(page, field, text)
+        page.save()
         for order, data in enumerate(SLIDES, start=1):
             slug = data['slug']
             if Slide.objects.filter(slug=slug).exists():
